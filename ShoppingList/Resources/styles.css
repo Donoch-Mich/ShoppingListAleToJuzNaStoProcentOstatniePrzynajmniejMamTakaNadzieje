@@ -1,0 +1,29 @@
+/* Styl dla przycisków */
+button {
+    background-color: #6200EE;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+    button:active {
+        background-color: #3700B3;
+    }
+
+/* Styl dla etykiet */
+label {
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Styl dla ramek */
+frame {
+    background-color: #FFFFFF;
+    border-color: #DDDDDD;
+    border-width: 1px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+}

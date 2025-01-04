@@ -1,0 +1,33 @@
+<!-- ShoppingCardView.xaml -->
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShoppingList.Controls.ShoppingCardView">
+    <Frame Padding="10" Margin="5" BorderColor="{Binding BorderColor}">
+        <StackLayout>
+            <!-- Nagłówek kategorii -->
+            <Label Text="{Binding CategoryName}" FontSize="Medium" FontAttributes="Bold" />
+
+            <!-- Lista produktów -->
+            <StackLayout BindableLayout.ItemsSource="{Binding Products}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Name}" VerticalOptions="Center" />
+                            <StackLayout Grid.Column="1" Orientation="Horizontal">
+                                <Button Text="-" Command="{Binding DecreaseQuantityCommand}" />
+                                <Label Text="{Binding Quantity}" VerticalOptions="Center" />
+                                <Button Text="+" Command="{Binding IncreaseQuantityCommand}" />
+                                <CheckBox IsChecked="{Binding IsBought}" />
+                                <Button Text="Usuń" Command="{Binding DeleteCommand}" />
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </StackLayout>
+    </Frame>
+</ContentView>
