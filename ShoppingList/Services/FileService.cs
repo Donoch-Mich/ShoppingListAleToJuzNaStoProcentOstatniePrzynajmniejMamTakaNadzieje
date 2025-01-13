@@ -25,6 +25,7 @@ public class FileService
         var xDoc = XDocument.Parse(xml);
 
         var categories = new List<Category>();
+
         foreach (var categoryElement in xDoc.Root.Elements("Category"))
         {
             var category = new Category

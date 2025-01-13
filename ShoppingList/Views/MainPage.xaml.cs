@@ -13,8 +13,35 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
 
+        // Wstępnie zdefiniowane kategorie
+        var predefinedCategories = new List<Category>
+        {
+            new Category("Pieczywo"),
+            new Category("Nabiał"),
+            new Category("Owoce"),
+            new Category("Warzywa"),
+            new Category("Mięso"),
+            new Category("Napoje")
+        };
+
         // Wczytaj dane z pliku XML
-        Categories = new ObservableCollection<Category>(_fileService.LoadData());
+        var loadedCategories = _fileService.LoadData();
+
+        // Połącz wstępne kategorie z danymi z pliku
+        foreach (var loadedCategory in loadedCategories)
+        {
+            var predefinedCategory = predefinedCategories.FirstOrDefault(c => c.Name == loadedCategory.Name);
+            if (predefinedCategory != null)
+            {
+                foreach (var product in loadedCategory.Products)
+                {
+                    predefinedCategory.AddProduct(product);
+                }
+            }
+        }
+
+        // Przypisz połączone kategorie do kolekcji
+        Categories = new ObservableCollection<Category>(predefinedCategories);
         BindingContext = this; // Ustawienie BindingContext
     }
 
@@ -34,6 +61,7 @@ public partial class MainPage : ContentPage
                 IsBought = false
             };
 
+            // Wybierz kategorię z listy wstępnie zdefiniowanych kategorii
             string categoryName = await DisplayActionSheet("Wybierz kategorię", "Anuluj", null, Categories.Select(c => c.Name).ToArray());
             var selectedCategory = Categories.FirstOrDefault(c => c.Name == categoryName);
 
