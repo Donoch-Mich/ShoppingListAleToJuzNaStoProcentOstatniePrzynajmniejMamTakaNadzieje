@@ -13,7 +13,6 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
 
-        // Wstępnie zdefiniowane kategorie
         var predefinedCategories = new List<Category>
         {
             new Category("Pieczywo"),
@@ -24,10 +23,8 @@ public partial class MainPage : ContentPage
             new Category("Napoje")
         };
 
-        // Wczytaj dane z pliku XML
         var loadedCategories = _fileService.LoadData();
 
-        // Połącz wstępne kategorie z danymi z pliku
         foreach (var loadedCategory in loadedCategories)
         {
             var predefinedCategory = predefinedCategories.FirstOrDefault(c => c.Name == loadedCategory.Name);
@@ -40,9 +37,8 @@ public partial class MainPage : ContentPage
             }
         }
 
-        // Przypisz połączone kategorie do kolekcji
         Categories = new ObservableCollection<Category>(predefinedCategories);
-        BindingContext = this; // Ustawienie BindingContext
+        BindingContext = this;
     }
 
     private async void OnAddProductClicked(object sender, EventArgs e)
@@ -61,15 +57,14 @@ public partial class MainPage : ContentPage
                 IsBought = false
             };
 
-            // Wybierz kategorię z listy wstępnie zdefiniowanych kategorii
             string categoryName = await DisplayActionSheet("Wybierz kategorię", "Anuluj", null, Categories.Select(c => c.Name).ToArray());
             var selectedCategory = Categories.FirstOrDefault(c => c.Name == categoryName);
 
             if (selectedCategory != null)
             {
-                product.Category = selectedCategory.Name; // Przypisz kategorię do produktu
+                product.Category = selectedCategory.Name;
                 selectedCategory.AddProduct(product);
-                _fileService.SaveData(Categories.ToList()); // Zapisz dane do pliku XML
+                _fileService.SaveData(Categories.ToList());
             }
         }
         else
@@ -80,8 +75,7 @@ public partial class MainPage : ContentPage
 
     protected override void OnDisappearing()
     {
-        // Zapisz dane do pliku XML przy zamykaniu strony
         _fileService.SaveData(Categories.ToList());
         base.OnDisappearing();
     }
-}   
+}

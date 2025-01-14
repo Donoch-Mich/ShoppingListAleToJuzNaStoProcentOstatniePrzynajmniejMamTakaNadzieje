@@ -9,23 +9,20 @@ public class FileService
 
     public FileService()
     {
-        // Ścieżka do pliku XML w folderze danych aplikacji
         _filePath = Path.Combine(FileSystem.AppDataDirectory, "shoppinglist.xml");
     }
 
-    // Metoda do wczytywania danych z pliku XML
     public List<Category> LoadData()
     {
         if (!File.Exists(_filePath))
         {
-            return new List<Category>(); // Jeśli plik nie istnieje, zwróć pustą listę
+            return new List<Category>();
         }
 
         var xml = File.ReadAllText(_filePath);
         var xDoc = XDocument.Parse(xml);
 
         var categories = new List<Category>();
-
         foreach (var categoryElement in xDoc.Root.Elements("Category"))
         {
             var category = new Category
@@ -52,7 +49,6 @@ public class FileService
         return categories;
     }
 
-    // Metoda do zapisywania danych do pliku XML
     public void SaveData(List<Category> categories)
     {
         var xDoc = new XDocument(new XElement("ShoppingList"));

@@ -46,7 +46,7 @@ public class Product : INotifyPropertyChanged
             {
                 _quantity = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(DisplayText)); // Powiadom o zmianie DisplayText
+                OnPropertyChanged(nameof(DisplayText));
             }
         }
     }
@@ -77,10 +77,8 @@ public class Product : INotifyPropertyChanged
         }
     }
 
-    // Właściwość tylko do odczytu
     public string DisplayText => $"{Name} ({Quantity} {Unit})";
 
-    // Implementacja INotifyPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

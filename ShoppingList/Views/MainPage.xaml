@@ -5,29 +5,24 @@
              BackgroundColor="{StaticResource White}">
     <ScrollView>
         <StackLayout Margin="20" Spacing="10">
-            <!-- Przycisk do dodawania produktów -->
             <Button Text="Dodaj produkt" 
                     BackgroundColor="{StaticResource Primary}" 
                     TextColor="{StaticResource White}"
                     Clicked="OnAddProductClicked" />
 
-            <!-- Lista kategorii -->
             <CollectionView ItemsSource="{Binding Categories}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BackgroundColor="{StaticResource Gray100}" Padding="10">
                             <StackLayout>
-                                <!-- Nagłówek kategorii -->
                                 <Label Text="{Binding Name}" 
                                        TextColor="{StaticResource Gray900}" 
                                        FontSize="Medium" 
                                        FontAttributes="Bold" />
 
-                                <!-- Lista produktów w kategorii -->
                                 <CollectionView ItemsSource="{Binding Products}">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
-                                            <!-- Użyj kontrolki ProductView do wyświetlania produktu -->
                                             <local:ProductView Product="{Binding .}" />
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>

@@ -5,22 +5,28 @@
              x:Name="ProductViewControl">
 
     <Grid Padding="5" ColumnDefinitions="Auto, *, Auto, Auto">
-        <!-- CheckBox do zaznaczania, czy produkt został kupiony -->
         <CheckBox IsChecked="{Binding IsBought, Mode=TwoWay}"
                   VerticalOptions="Center"
                   HorizontalOptions="Start"
                   CheckedChanged="OnProductBoughtChanged" />
 
-        <!-- Nazwa, ilość i jednostka produktu -->
         <Label Text="{Binding DisplayText}"
                TextColor="{StaticResource Gray900}"
                FontSize="14"
                VerticalOptions="Center"
                HorizontalOptions="Start"
                Margin="30,0,0,0"
-               Grid.Column="1" />
+               Grid.Column="1">
+            <Label.Triggers>
+                
+                <DataTrigger TargetType="Label"
+                             Binding="{Binding IsBought}"
+                             Value="True">
+                    <Setter Property="TextDecorations" Value="Strikethrough" />
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
 
-        <!-- Entry do edycji ilości -->
         <Entry Text="{Binding Quantity, Mode=TwoWay}"
                Keyboard="Numeric"
                WidthRequest="60"
@@ -29,7 +35,6 @@
                Grid.Column="2"
                TextChanged="OnQuantityChanged" />
 
-        <!-- Przycisk do usuwania produktu -->
         <Button Text="Usuń"
                 BackgroundColor="Red"
                 TextColor="White"
@@ -38,4 +43,4 @@
                 Grid.Column="3"
                 Clicked="OnDeleteProductClicked" />
     </Grid>
-</ContentView>  
+</ContentView>
