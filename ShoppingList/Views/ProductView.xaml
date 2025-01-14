@@ -1,14 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ShoppingList.Views.ProductView">
-    <Frame BackgroundColor="{StaticResource Gray100}">
-        <StackLayout>
-            <Label Text="{Binding DisplayText}" 
-                   TextColor="{StaticResource Gray900}" 
-                   FontSize="14" />
-            <Label Text="{Binding Category}" 
-                   TextColor="{StaticResource Gray600}" 
-                   FontSize="12" />
-        </StackLayout>
-    </Frame>
-</ContentView>
+             x:Class="ShoppingList.ProductView"
+             x:Name="ProductViewControl">
+
+    <Grid Padding="5" ColumnDefinitions="Auto, *, Auto, Auto">
+        <!-- CheckBox do zaznaczania, czy produkt został kupiony -->
+        <CheckBox IsChecked="{Binding IsBought, Mode=TwoWay}"
+                  VerticalOptions="Center"
+                  HorizontalOptions="Start"
+                  CheckedChanged="OnProductBoughtChanged" />
+
+        <!-- Nazwa, ilość i jednostka produktu -->
+        <Label Text="{Binding DisplayText}"
+               TextColor="{StaticResource Gray900}"
+               FontSize="14"
+               VerticalOptions="Center"
+               HorizontalOptions="Start"
+               Margin="30,0,0,0"
+               Grid.Column="1" />
+
+        <!-- Entry do edycji ilości -->
+        <Entry Text="{Binding Quantity, Mode=TwoWay}"
+               Keyboard="Numeric"
+               WidthRequest="60"
+               HorizontalOptions="End"
+               VerticalOptions="Center"
+               Grid.Column="2"
+               TextChanged="OnQuantityChanged" />
+
+        <!-- Przycisk do usuwania produktu -->
+        <Button Text="Usuń"
+                BackgroundColor="Red"
+                TextColor="White"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                Grid.Column="3"
+                Clicked="OnDeleteProductClicked" />
+    </Grid>
+</ContentView>  

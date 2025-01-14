@@ -1,13 +1,90 @@
-﻿namespace ShoppingList.Models;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
-public class Product
+namespace ShoppingList.Models;
+
+public class Product : INotifyPropertyChanged
 {
-    public string Name { get; set; } // Nazwa produktu
-    public string Unit { get; set; } // Jednostka (szt., kg, l)
-    public int Quantity { get; set; } // Ilość
-    public bool IsBought { get; set; } // Czy kupiony
-    public string Category { get; set; } // Kategoria produktu
+    private string _name;
+    private string _unit;
+    private int _quantity;
+    private bool _isBought;
+    private string _category;
+
+    public string Name
+    {
+        get => _name;
+        set
+        {
+            if (_name != value)
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public string Unit
+    {
+        get => _unit;
+        set
+        {
+            if (_unit != value)
+            {
+                _unit = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public int Quantity
+    {
+        get => _quantity;
+        set
+        {
+            if (_quantity != value)
+            {
+                _quantity = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(DisplayText)); // Powiadom o zmianie DisplayText
+            }
+        }
+    }
+
+    public bool IsBought
+    {
+        get => _isBought;
+        set
+        {
+            if (_isBought != value)
+            {
+                _isBought = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public string Category
+    {
+        get => _category;
+        set
+        {
+            if (_category != value)
+            {
+                _category = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
     // Właściwość tylko do odczytu
     public string DisplayText => $"{Name} ({Quantity} {Unit})";
+
+    // Implementacja INotifyPropertyChanged
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }

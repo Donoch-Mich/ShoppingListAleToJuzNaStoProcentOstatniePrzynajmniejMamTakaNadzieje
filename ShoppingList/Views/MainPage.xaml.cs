@@ -84,4 +84,4 @@ public partial class MainPage : ContentPage
         _fileService.SaveData(Categories.ToList());
         base.OnDisappearing();
     }
-}
+}   

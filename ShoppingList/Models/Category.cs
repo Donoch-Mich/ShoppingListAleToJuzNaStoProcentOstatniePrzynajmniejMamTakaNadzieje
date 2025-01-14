@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ShoppingList.Models;
 
@@ -21,6 +22,7 @@ public class Category
     public void AddProduct(Product product)
     {
         Products.Add(product);
+        SortProducts(); // Sortuj produkty po dodaniu
     }
 
     // Metoda do usuwania produktu z kategorii
@@ -28,4 +30,18 @@ public class Category
     {
         Products.Remove(product);
     }
-}   
+
+    // Metoda do sortowania produktów (kupione na dole)
+    public void SortProducts()
+    {
+        var sortedProducts = Products
+            .OrderBy(p => p.IsBought) // Sortuj według IsBought (false -> true)
+            .ToList();
+
+        Products.Clear();
+        foreach (var product in sortedProducts)
+        {
+            Products.Add(product);
+        }
+    }
+}
